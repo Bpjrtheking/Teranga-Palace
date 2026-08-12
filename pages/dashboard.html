@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tableau de bord — TERANGA PALACE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<div class="dashboard">
+
+    <!-- ===== Menu latéral ===== -->
+    <aside class="sidebar">
+        <div class="marque">
+            <div class="nom">Teranga Palace</div>
+            <div class="sous-titre">Gestion Hôtelière</div>
+        </div>
+        <ul class="menu">
+            <li><a href="#" data-section="accueil" class="actif">Tableau de bord</a></li>
+            <li><a href="#" data-section="clients">Clients</a></li>
+            <li><a href="#" data-section="chambres">Chambres</a></li>
+            <li><a href="#" data-section="reservations">Réservations</a></li>
+            <li><a href="#" data-section="sejours">Séjours</a></li>
+            <li><a href="#" data-section="paiements">Paiements</a></li>
+            <li><a href="#" data-section="factures">Factures</a></li>
+            <li><a href="#" data-section="activites">Activités</a></li>
+            <li><a href="#" data-section="utilisateurs">Utilisateurs</a></li>
+        </ul>
+    </aside>
+
+    <!-- ===== Zone principale ===== -->
+    <div class="zone-principale">
+
+        <header class="entete">
+            <div>
+                <strong>TERANGA PALACE</strong>
+            </div>
+            <div class="infos-utilisateur">
+                <div class="nom-role">
+                    <span id="nomUtilisateurConnecte">—</span>
+                    <span class="role" id="roleUtilisateurConnecte">—</span>
+                </div>
+                <button class="bouton-deconnexion" onclick="deconnexion()">Déconnexion</button>
+            </div>
+        </header>
+
+        <main class="content-box" id="contenu">
+
+            <!-- ===================== ACCUEIL / STATISTIQUES ===================== -->
+            <section id="section-accueil" class="actif">
+                <div class="entete-section"><h2>Tableau de bord</h2></div>
+                <div class="grille-stats">
+                    <div class="carte-stat"><div class="valeur" id="stat-clients">125</div><div class="libelle">Clients</div></div>
+                    <div class="carte-stat"><div class="valeur" id="stat-chambres">40</div><div class="libelle">Chambres</div></div>
+                    <div class="carte-stat"><div class="valeur" id="stat-reservations">18</div><div class="libelle">Réservations</div></div>
+                    <div class="carte-stat"><div class="valeur" id="stat-sejours">15</div><div class="libelle">Séjours actifs</div></div>
+                    <div class="carte-stat"><div class="valeur" id="stat-revenus">850 000 FCFA</div><div class="libelle">Revenus</div></div>
+                    <div class="carte-stat"><div class="valeur" id="stat-occupation">75 %</div><div class="libelle">Taux d'occupation</div></div>
+                </div>
+            </section>
+
+            <!-- ===================== CLIENTS ===================== -->
+            <section id="section-clients">
+                <div class="entete-section"><h2>Clients</h2><button class="btn-ajouter">Ajouter un client</button></div>
+                <div class="conteneur-tableau">
+                    <table>
+                        <thead><tr><th>Nom</th><th>Prénom</th><th>Téléphone</th><th>Email</th><th>Adresse</th><th>Actions</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td>Sow</td><td>Aïda</td><td>77 123 45 67</td><td>aida.sow@mail.com</td><td>Dakar, Plateau</td>
+                                <td class="actions"><button class="btn-modifier">Modifier</button><button class="btn-supprimer">Supprimer</button></td>
+                            </tr>
+                            <tr>
+                                <td>Ndiaye</td><td>Babacar</td><td>76 987 65 43</td><td>b.ndiaye@mail.com</td><td>Saly Portudal</td>
+                                <td class="actions"><button class="btn-modifier">Modifier</button><button class="btn-supprimer">Supprimer</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal">
+                    <div class="modal-contenu">
+                        <div class="modal-titre">Client</div>
+                        <form>
+                            <input type="hidden" name="id" />
+                            <div class="champ"><label>Nom</label><input type="text" name="nom" required /></div>
+                            <div class="champ"><label>Prénom</label><input type="text" name="prenom" required /></div>
+                            <div class="champ"><label>Téléphone</label><input type="text" name="telephone" /></div>
+                            <div class="champ"><label>Email</label><input type="email" name="email" /></div>
+                            <div class="champ"><label>Adresse</label><input type="text" name="adresse" /></div>
+                            <div class="actions-modal">
+                                <button type="button" class="btn-annuler">Annuler</button>
+                                <button type="submit" class="btn-enregistrer">Enregistrer</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================== CHAMBRES ===================== -->
+            <section id="section-chambres">
+                <div class="entete-section"><h2>Chambres</h2><button class="btn-ajouter">Ajouter une chambre</button></div>
+                <div class="conteneur-tableau">
+                    <table>
+                        <thead><tr><th>Numéro</th><th>Catégorie</th><th>Tarif</th><th>Statut</th><th>Actions</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td>101</td><td>Suite</td><td>75 000 FCFA</td><td>Disponible</td>
+                                <td class="actions"><button class="btn-modifier">Modifier</button><button class="btn-supprimer">Supprimer</button></td>
+                            </tr>
+                            <tr>
+                                <td>204</td><td>Standard</td><td>35 000 FCFA</td><td>Occupée</td>
+                                <td class="actions"><button class="btn-modifier">Modifier</button><button class="btn-supprimer">Supprimer</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal">
+                    <div class="modal-contenu">
+                        <div class="modal-titre">Chambre</div>
+                        <form>
+                            <input type="hidden" name="id" />
+                            <div class="champ"><label>Numéro</label><input type="text" name="numero" required /></div>
+                            <div class="champ"><label>Catégorie</label>
+                                <select name="categorie">
+                                    <option>Standard</option>
+                                    <option>Suite</option>
+                                    <option>Luxe</option>
+                                </select>
+                            </div>
+                            <div class="champ"><label>Tarif (FCFA)</label><input type="number" name="tarif" /></div>
+                            <div class="champ"><label>Statut</label>
+                                <select name="statut">
+                                    <option>Disponible</option>
+                                    <option>Occupée</option>
+                                    <option>Maintenance</option>
+                                </select>
+                            </div>
+                            <div class="actions-modal">
+                                <button type="button" class="btn-annuler">Annuler</button>
+                                <button type="submit" class="btn-enregistrer">Enregistrer</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================== RÉSERVATIONS ===================== -->
+            <section id="section-reservations">
+                <div class="entete-section"><h2>Réservations</h2><button class="btn-ajouter">Ajouter une réservation</button></div>
+                <div class="conteneur-tableau">
+                    <table>
+                        <thead><tr><th>Client</th><th>Chambre</th><th>Arrivée</th><th>Départ</th><th>Statut</th><th>Actions</th></tr></thead>
+                        <tbody><tr><td colspan="6" class="etat-vide">Aucune réservation pour le moment.</td></tr></tbody>
+                    </table>
+                </div>
+                <div class="modal">
+                    <div class="modal-contenu">
+                        <div class="modal-titre">Réservation</div>
+                        <form>
+                            <input type="hidden" name="id" />
+                            <div class="champ"><label>Client</label><select name="client_id" required></select></div>
+                            <div class="champ"><label>Chambre</label><select name="chambre_id" required></select></div>
+                            <div class="champ"><label>Date d'arrivée</label><input type="date" name="date_arrivee" /></div>
+                            <div class="champ"><label>Date de départ</label><input type="date" name="date_depart" /></div>
+                            <div class="champ"><label>Statut</label>
+                                <select name="statut">
+                                    <option>Confirmée</option>
+                                    <option>Annulée</option>
+                                </select>
+                            </div>
+                            <div class="actions-modal">
+                                <button type="button" class="btn-annuler">Annuler</button>
+                                <button type="submit" class="btn-enregistrer">Enregistrer</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================== SÉJOURS ===================== -->
+            <section id="section-sejours">
+                <div class="entete-section"><h2>Séjours</h2><button class="btn-ajouter">Ajouter un séjour</button></div>
+                <div class="conteneur-tableau">
+                    <table>
+                        <thead><tr><th>Client</th><th>Chambre</th><th>Statut</th><th>Actions</th></tr></thead>
+                        <tbody><tr><td colspan="4" class="etat-vide">Aucun séjour pour le moment.</td></tr></tbody>
+                    </table>
+                </div>
+                <div class="modal">
+                    <div class="modal-contenu">
+                        <div class="modal-titre">Séjour</div>
+                        <form>
+                            <input type="hidden" name="id" />
+                            <div class="champ"><label>Client</label><select name="client_id" required></select></div>
+                            <div class="champ"><label>Chambre</label><select name="chambre_id" required></select></div>
+                            <div class="champ"><label>Statut</label>
+                                <select name="statut">
+                                    <option>Séjour prévu</option>
+                                    <option>Séjour en cours</option>
+                                    <option>Séjour terminé</option>
+                                </select>
+                            </div>
+                            <div class="actions-modal">
+                                <button type="button" class="btn-annuler">Annuler</button>
+                                <button type="submit" class="btn-enregistrer">Enregistrer</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================== PAIEMENTS ===================== -->
+            <section id="section-paiements">
+                <div class="entete-section"><h2>Paiements</h2><button class="btn-ajouter">Ajouter un paiement</button></div>
+                <div class="conteneur-tableau">
+                    <table>
+                        <thead><tr><th>Client</th><th>Chambre</th><th>Montant payé</th><th>Montant restant</th><th>Date</th><th>Actions</th></tr></thead>
+                        <tbody><tr><td colspan="6" class="etat-vide">Aucun paiement pour le moment.</td></tr></tbody>
+                    </table>
+                </div>
+                <div class="modal">
+                    <div class="modal-contenu">
+                        <div class="modal-titre">Paiement</div>
+                        <form>
+                            <input type="hidden" name="id" />
+                            <div class="champ"><label>Client</label><select name="client_id" required></select></div>
+                            <div class="champ"><label>Chambre</label><select name="chambre_id" required></select></div>
+                            <div class="champ"><label>Montant payé (FCFA)</label><input type="number" name="montant" /></div>
+                            <div class="champ"><label>Montant restant (FCFA)</label><input type="number" name="montant_restant" /></div>
+                            <div class="champ"><label>Date</label><input type="date" name="date_paiement" /></div>
+                            <div class="actions-modal">
+                                <button type="button" class="btn-annuler">Annuler</button>
+                                <button type="submit" class="btn-enregistrer">Enregistrer</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================== FACTURES ===================== -->
+            <section id="section-factures">
+                <div class="entete-section"><h2>Factures</h2><button class="btn-ajouter">Ajouter une facture</button></div>
+                <div class="conteneur-tableau">
+                    <table>
+                        <thead><tr><th>Client</th><th>Chambre</th><th>Montant total</th><th>Date</th><th>Actions</th></tr></thead>
+                        <tbody><tr><td colspan="5" class="etat-vide">Aucune facture pour le moment.</td></tr></tbody>
+                    </table>
+                </div>
+                <div class="modal">
+                    <div class="modal-contenu">
+                        <div class="modal-titre">Facture</div>
+                        <form>
+                            <input type="hidden" name="id" />
+                            <div class="champ"><label>Client</label><select name="client_id" required></select></div>
+                            <div class="champ"><label>Chambre</label><select name="chambre_id" required></select></div>
+                            <div class="champ"><label>Montant total (FCFA)</label><input type="number" name="montant_total" /></div>
+                            <div class="champ"><label>Date</label><input type="date" name="date_facture" /></div>
+                            <div class="actions-modal">
+                                <button type="button" class="btn-annuler">Annuler</button>
+                                <button type="submit" class="btn-enregistrer">Enregistrer</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================== ACTIVITÉS ===================== -->
+            <section id="section-activites">
+                <div class="entete-section"><h2>Activités</h2><button class="btn-ajouter">Ajouter une activité</button></div>
+                <div class="conteneur-tableau">
+                    <table>
+                        <thead><tr><th>Nom</th><th>Description</th><th>Prix</th><th>Actions</th></tr></thead>
+                        <tbody><tr><td colspan="4" class="etat-vide">Aucune activité pour le moment.</td></tr></tbody>
+                    </table>
+                </div>
+                <div class="modal">
+                    <div class="modal-contenu">
+                        <div class="modal-titre">Activité</div>
+                        <form>
+                            <input type="hidden" name="id" />
+                            <div class="champ"><label>Nom</label><input type="text" name="nom" required /></div>
+                            <div class="champ"><label>Description</label><input type="text" name="description" /></div>
+                            <div class="champ"><label>Prix (FCFA)</label><input type="number" name="prix" /></div>
+                            <div class="actions-modal">
+                                <button type="button" class="btn-annuler">Annuler</button>
+                                <button type="submit" class="btn-enregistrer">Enregistrer</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================== UTILISATEURS ===================== -->
+            <section id="section-utilisateurs">
+                <div class="entete-section"><h2>Utilisateurs</h2><button class="btn-ajouter">Ajouter un utilisateur</button></div>
+                <div class="conteneur-tableau">
+                    <table>
+                        <thead><tr><th>Nom</th><th>Prénom</th><th>Login</th><th>Mot de passe</th><th>Email</th><th>Rôle</th><th>Statut</th><th>Actions</th></tr></thead>
+                        <tbody><tr><td colspan="8" class="etat-vide">Aucun utilisateur pour le moment.</td></tr></tbody>
+                    </table>
+                </div>
+                <div class="modal">
+                    <div class="modal-contenu">
+                        <div class="modal-titre">Utilisateur</div>
+                        <form>
+                            <input type="hidden" name="id" />
+                            <div class="champ"><label>Nom</label><input type="text" name="nom" required /></div>
+                            <div class="champ"><label>Prénom</label><input type="text" name="prenom" required /></div>
+                            <div class="champ"><label>Login</label><input type="text" name="login" required /></div>
+                            <div class="champ"><label>Mot de passe</label><input type="text" name="motDePasse" required /></div>
+                            <div class="champ"><label>Email</label><input type="email" name="email" /></div>
+                            <div class="champ"><label>Rôle</label>
+                                <select name="role">
+                                    <option>Administrateur</option>
+                                    <option>Super Administrateur</option>
+                                </select>
+                            </div>
+                            <div class="champ"><label>Statut</label>
+                                <select name="statutCompte">
+                                    <option>Actif</option>
+                                    <option>Inactif</option>
+                                </select>
+                            </div>
+                            <div class="actions-modal">
+                                <button type="button" class="btn-annuler">Annuler</button>
+                                <button type="submit" class="btn-enregistrer">Enregistrer</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/supabase.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/crud.js"></script>
+<script src="../js/modules.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>

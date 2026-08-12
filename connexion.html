@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Connexion — TERANGA PALACE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div class="page-connexion">
+    <a href="index.html" class="lien-retour">← Retour à l'accueil</a>
+    <div class="carte-connexion">
+        <div class="marque">
+            <div class="nom">Teranga Palace</div>
+            <div class="trait"></div>
+            <div class="sous-titre">Logiciel de Gestion Hôtelière</div>
+        </div>
+
+        <form id="formConnexion">
+            <div class="champ">
+                <label for="login">Identifiant</label>
+                <input type="text" id="login" name="login" autocomplete="username" required />
+            </div>
+            <div class="champ">
+                <label for="motDePasse">Mot de passe</label>
+                <input type="password" id="motDePasse" name="motDePasse" autocomplete="current-password" required />
+            </div>
+            <button type="submit" class="bouton-principal">Se connecter</button>
+            <div class="message-erreur" id="messageErreur"></div>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/auth.js"></script>
+<script>
+    document.getElementById("formConnexion").addEventListener("submit", gererConnexion);
+</script>
+</body>
+</html>
