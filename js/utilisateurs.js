@@ -79,7 +79,6 @@ function initModuleUtilisateurs() {
             form.nom.value = ligne.nom;
             form.prenom.value = ligne.prenom;
             form.login.value = ligne.login;
-            form.role.value = ligne.role;
             form.statutCompte.value = ligne.statutCompte;
         } else {
             titreModal.textContent = "Ajouter — Utilisateur";
@@ -109,10 +108,10 @@ function initModuleUtilisateurs() {
         const id = champIdCache.value;
 
         if (id) {
+            // Modification d'un profil existant (nom, prénom, statut uniquement — pas le rôle)
             const { error } = await client.from("profils").update({
                 nom: form.nom.value,
                 prenom: form.prenom.value,
-                role: form.role.value,
                 statutCompte: form.statutCompte.value,
             }).eq("id", id);
 
@@ -122,6 +121,8 @@ function initModuleUtilisateurs() {
                 return;
             }
         } else {
+            // Création : un vrai compte de connexion, via un client Supabase temporaire
+            // (pour ne pas déconnecter l'administrateur actuellement connecté)
             const clientTemporaire = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
             const email = `${form.login.value.trim()}@${DOMAINE_INTERNE}`;
 
@@ -140,7 +141,7 @@ function initModuleUtilisateurs() {
                 nom: form.nom.value,
                 prenom: form.prenom.value,
                 login: form.login.value.trim(),
-                role: form.role.value,
+                role: "Administrateur", // fixé automatiquement — seul un Super Administrateur créé en base peut avoir ce rôle
                 statutCompte: form.statutCompte.value,
             }]);
 
