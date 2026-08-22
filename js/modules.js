@@ -90,18 +90,5 @@ function initTousLesModules() {
         ],
     });
 
-    initCrudModule({
-        table: "utilisateurs",
-        sectionId: "section-utilisateurs",
-        titre: "Utilisateur",
-        columns: [
-            { key: "nom", label: "Nom", type: "text" },
-            { key: "prenom", label: "Prénom", type: "text" },
-            { key: "login", label: "Login", type: "text" },
-            { key: "motDePasse", label: "Mot de passe", type: "text" },
-            { key: "email", label: "Email", type: "email" },
-            { key: "role", label: "Rôle", type: "select", options: ["Super Administrateur", "Administrateur"] },
-            { key: "statutCompte", label: "Statut", type: "select", options: ["Actif", "Inactif"] },
-        ],
-    });
+    initModuleUtilisateurs();
 }

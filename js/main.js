@@ -2,8 +2,10 @@
 // Navigation du dashboard + tableau de bord dynamique
 // ============================================
 
-document.addEventListener("DOMContentLoaded", () => {
-    protegerPage();
+document.addEventListener("DOMContentLoaded", async () => {
+    const profil = await verifierSession();
+    if (!profil) return; // redirection déjà lancée vers connexion.html
+
     afficherUtilisateurConnecte();
     initTousLesModules();
     activerNavigation();

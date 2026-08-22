@@ -1,30 +1,49 @@
 // ============================================
-// Authentification simple basée sur la table "utilisateurs"
+// Authentification réelle via Supabase Auth
 // ============================================
 
-// Vérifie que l'utilisateur est connecté, sinon renvoie vers la connexion.
-// À appeler en haut de dashboard.html
-function protegerPage() {
-    const utilisateur = sessionStorage.getItem("utilisateur");
-    if (!utilisateur) {
+const DOMAINE_INTERNE = "teranga.local"; // sert à transformer un "login" en email pour Supabase Auth
+
+// Vérifie qu'une vraie session Supabase existe. Redirige sinon.
+// Renvoie le profil connecté (ou null si redirection déclenchée).
+async function verifierSession() {
+    const { data: { session } } = await client.auth.getSession();
+
+    if (!session) {
         window.location.href = "../connexion.html";
+        return null;
     }
+
+    const { data: profil, error } = await client
+        .from("profils")
+        .select("*")
+        .eq("id", session.user.id)
+        .maybeSingle();
+
+    if (error || !profil || profil.statutCompte !== "Actif") {
+        await client.auth.signOut();
+        window.location.href = "../connexion.html";
+        return null;
+    }
+
+    sessionStorage.setItem("utilisateur", JSON.stringify(profil));
+    return profil;
 }
 
-// Déconnexion
-function deconnexion() {
+// Déconnexion réelle (ferme la session Supabase)
+async function deconnexion() {
+    await client.auth.signOut();
     sessionStorage.removeItem("utilisateur");
     window.location.href = "../connexion.html";
 }
 
-// Gère la soumission du formulaire de connexion (appelé depuis index.html)
+// Gère la soumission du formulaire de connexion (appelé depuis connexion.html)
 async function gererConnexion(evenement) {
     evenement.preventDefault();
 
     const login = document.getElementById("login").value.trim();
     const motDePasse = document.getElementById("motDePasse").value.trim();
     const messageErreur = document.getElementById("messageErreur");
-
     messageErreur.textContent = "";
 
     if (!login || !motDePasse) {
@@ -32,29 +51,28 @@ async function gererConnexion(evenement) {
         return;
     }
 
-    const { data, error } = await client
-        .from("utilisateurs")
-        .select("*")
-        .eq("login", login)
-        .eq("motDePasse", motDePasse)
-        .eq("statutCompte", "Actif")
-        .maybeSingle();
+    const email = `${login}@${DOMAINE_INTERNE}`;
+
+    const { data, error } = await client.auth.signInWithPassword({ email, password: motDePasse });
 
     if (error) {
-        messageErreur.textContent = "Erreur de connexion. Réessayez.";
-        console.error(error);
+        messageErreur.textContent = "Identifiants incorrects.";
         return;
     }
 
-    if (!data) {
-        messageErreur.textContent = "Identifiants incorrects ou compte inactif.";
+    const { data: profil, error: erreurProfil } = await client
+        .from("profils")
+        .select("*")
+        .eq("id", data.user.id)
+        .maybeSingle();
+
+    if (erreurProfil || !profil || profil.statutCompte !== "Actif") {
+        messageErreur.textContent = "Compte introuvable ou inactif.";
+        await client.auth.signOut();
         return;
     }
 
-    // On enregistre l'utilisateur connecté (sans le mot de passe) en session
-    const { motDePasse: _mdp, ...utilisateurSansMdp } = data;
-    sessionStorage.setItem("utilisateur", JSON.stringify(utilisateurSansMdp));
-
+    sessionStorage.setItem("utilisateur", JSON.stringify(profil));
     window.location.href = "pages/dashboard.html";
 }
 
@@ -67,7 +85,6 @@ function afficherUtilisateurConnecte() {
         `${utilisateur.prenom} ${utilisateur.nom}`;
     document.getElementById("roleUtilisateurConnecte").textContent = utilisateur.role;
 
-    // Le menu "Utilisateurs" est réservé au Super Administrateur
     if (utilisateur.role !== "Super Administrateur") {
         const lienUtilisateurs = document.querySelector('[data-section="utilisateurs"]');
         if (lienUtilisateurs) lienUtilisateurs.style.display = "none";

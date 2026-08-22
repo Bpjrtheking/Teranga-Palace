@@ -298,8 +298,8 @@
                 <div class="entete-section"><h2>Utilisateurs</h2><button class="btn-ajouter">Ajouter un utilisateur</button></div>
                 <div class="conteneur-tableau">
                     <table>
-                        <thead><tr><th>Nom</th><th>Prénom</th><th>Login</th><th>Mot de passe</th><th>Email</th><th>Rôle</th><th>Statut</th><th>Actions</th></tr></thead>
-                        <tbody><tr><td colspan="8" class="etat-vide">Aucun utilisateur pour le moment.</td></tr></tbody>
+                        <thead><tr><th>Nom</th><th>Prénom</th><th>Login</th><th>Rôle</th><th>Statut</th><th>Actions</th></tr></thead>
+                        <tbody><tr><td colspan="6" class="etat-vide">Aucun utilisateur pour le moment.</td></tr></tbody>
                     </table>
                 </div>
                 <div class="modal">
@@ -310,8 +310,7 @@
                             <div class="champ"><label>Nom</label><input type="text" name="nom" required /></div>
                             <div class="champ"><label>Prénom</label><input type="text" name="prenom" required /></div>
                             <div class="champ"><label>Login</label><input type="text" name="login" required /></div>
-                            <div class="champ"><label>Mot de passe</label><input type="text" name="motDePasse" required /></div>
-                            <div class="champ"><label>Email</label><input type="email" name="email" /></div>
+                            <div class="champ"><label>Mot de passe</label><input type="password" name="motDePasse" /></div>
                             <div class="champ"><label>Rôle</label>
                                 <select name="role">
                                     <option>Administrateur</option>
@@ -341,6 +340,7 @@
 <script src="../js/supabase.js"></script>
 <script src="../js/auth.js"></script>
 <script src="../js/crud.js"></script>
+<script src="../js/utilisateurs.js"></script>
 <script src="../js/modules.js"></script>
 <script src="../js/main.js"></script>
 </body>
