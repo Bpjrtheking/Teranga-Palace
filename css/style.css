@@ -31,6 +31,18 @@ body {
 a { text-decoration: none; color: inherit; }
 button { font-family: inherit; cursor: pointer; }
 
+/* ---------- Logo ---------- */
+
+.logo {
+    height: 40px;
+    width: auto;
+    display: block;
+}
+
+.entete-publique .logo { height: 34px; }
+.sidebar .logo { height: 32px; margin-bottom: 6px; }
+.logo-connexion { height: 48px; margin: 0 auto 14px; }
+
 /* ---------- Page d'accueil publique ---------- */
 
 .page-accueil { background: var(--ivoire); min-height: 100vh; }
@@ -43,6 +55,9 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .entete-publique .nom-entete {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     font-family: var(--police-titre);
     font-style: italic;
     font-size: 19px;
@@ -205,6 +220,10 @@ button { font-family: inherit; cursor: pointer; }
     background: var(--or);
     margin: 14px auto;
 }
+
+.logo { height: 40px; width: auto; display: block; }
+.logo-connexion { height: 56px; margin: 0 auto 14px; }
+.logo-sidebar { height: 32px; margin-bottom: 8px; }
 
 .marque .sous-titre {
     font-size: 12.5px;
@@ -424,6 +443,40 @@ button { font-family: inherit; cursor: pointer; }
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--texte-doux);
+}
+
+.grille-graphiques {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.carte-graphique {
+    background: var(--blanc);
+    border: 1px solid var(--bordure);
+    border-radius: 4px;
+    padding: 20px;
+}
+
+.carte-graphique h3 {
+    font-family: var(--police-titre);
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--vert-nuit);
+    margin-bottom: 14px;
+}
+
+.carte-graphique canvas {
+    max-height: 220px;
+}
+
+.carte-graphique-large {
+    margin-top: 16px;
+}
+
+.carte-graphique-large canvas {
+    max-height: 260px;
 }
 
 /* ---------- Tableaux ---------- */

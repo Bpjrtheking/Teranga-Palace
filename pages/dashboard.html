@@ -15,6 +15,7 @@
     <!-- ===== Menu latéral ===== -->
     <aside class="sidebar">
         <div class="marque">
+            <img src="../images/teranga.png" alt="Teranga Palace" class="logo logo-sidebar" />
             <div class="nom">Teranga Palace</div>
             <div class="sous-titre">Gestion Hôtelière</div>
         </div>
@@ -59,6 +60,25 @@
                     <div class="carte-stat"><div class="valeur" id="stat-sejours">15</div><div class="libelle">Séjours actifs</div></div>
                     <div class="carte-stat"><div class="valeur" id="stat-revenus">850 000 FCFA</div><div class="libelle">Revenus</div></div>
                     <div class="carte-stat"><div class="valeur" id="stat-occupation">75 %</div><div class="libelle">Taux d'occupation</div></div>
+                </div>
+
+                <div class="grille-graphiques">
+                    <div class="carte-graphique">
+                        <h3>Chambres par statut</h3>
+                        <canvas id="graphique-chambres-statut"></canvas>
+                    </div>
+                    <div class="carte-graphique">
+                        <h3>Chambres par catégorie</h3>
+                        <canvas id="graphique-chambres-categorie"></canvas>
+                    </div>
+                    <div class="carte-graphique">
+                        <h3>Réservations par statut</h3>
+                        <canvas id="graphique-reservations-statut"></canvas>
+                    </div>
+                </div>
+                <div class="carte-graphique carte-graphique-large">
+                    <h3>Évolution des revenus</h3>
+                    <canvas id="graphique-revenus"></canvas>
                 </div>
             </section>
 
@@ -293,7 +313,7 @@
                 </div>
             </section>
 
-                                    <!-- ===================== UTILISATEURS ===================== -->
+            <!-- ===================== UTILISATEURS ===================== -->
             <section id="section-utilisateurs">
                 <div class="entete-section"><h2>Utilisateurs</h2><button class="btn-ajouter">Ajouter un utilisateur</button></div>
                 <div class="conteneur-tableau">
@@ -331,10 +351,12 @@
                     </div>
                 </div>
             </section>
+
         </main>
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../js/supabase.js"></script>
 <script src="../js/auth.js"></script>
