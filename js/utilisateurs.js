@@ -1,9 +1,8 @@
 // ============================================
-// Gestion des utilisateurs (liée à de vrais comptes Supabase Auth)
-// Cas particulier, séparé du moteur CRUD générique, car :
-// - "Ajouter" crée un vrai compte de connexion (email + mot de passe)
-// - "Supprimer" ne peut pas supprimer un compte d'authentification depuis
-//   le navigateur (ça demande une clé secrète serveur) : on le désactive.
+// Gestion des utilisateurs — entièrement pilotée depuis l'app,
+// via la fonction Supabase Edge "gerer-utilisateurs" qui seule a
+// les droits nécessaires pour créer/supprimer de vrais comptes,
+// et qui vérifie elle-même que l'appelant est Super Administrateur.
 // ============================================
 
 function initModuleUtilisateurs() {
@@ -18,7 +17,25 @@ function initModuleUtilisateurs() {
     const titreModal = section.querySelector(".modal-titre");
     const champIdCache = form.querySelector('input[name="id"]');
     const champMotDePasse = form.querySelector('[name="motDePasse"]');
+    const champRole = form.querySelector('[name="role"]');
     const champLogin = form.querySelector('[name="login"]');
+
+    // Appelle la fonction Supabase Edge avec le jeton de la personne connectée
+    async function appelerFonction(corps) {
+        const { data: { session } } = await client.auth.getSession();
+
+        const reponse = await fetch(`${SUPABASE_URL}/functions/v1/gerer-utilisateurs`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${session.access_token}`,
+                "apikey": SUPABASE_KEY,
+            },
+            body: JSON.stringify(corps),
+        });
+
+        return reponse.json();
+    }
 
     async function chargerDonnees() {
         tbody.innerHTML = `<tr><td colspan="6">Chargement...</td></tr>`;
@@ -50,7 +67,7 @@ function initModuleUtilisateurs() {
                 <td>${ligne.statutCompte}</td>
                 <td class="actions">
                     <button class="btn-modifier" data-id="${ligne.id}">Modifier</button>
-                    <button class="btn-supprimer" data-id="${ligne.id}">Désactiver</button>
+                    <button class="btn-supprimer" data-id="${ligne.id}">Supprimer</button>
                 </td>
             `;
             tbody.appendChild(tr);
@@ -60,7 +77,7 @@ function initModuleUtilisateurs() {
             btn.addEventListener("click", () => ouvrirModal(btn.dataset.id, data));
         });
         tbody.querySelectorAll(".btn-supprimer").forEach(btn => {
-            btn.addEventListener("click", () => desactiverLigne(btn.dataset.id));
+            btn.addEventListener("click", () => supprimerLigne(btn.dataset.id));
         });
     }
 
@@ -68,9 +85,11 @@ function initModuleUtilisateurs() {
         form.reset();
         champIdCache.value = "";
 
-        champMotDePasse.closest(".champ").style.display = id ? "none" : "block";
-        champMotDePasse.required = !id;
-        champLogin.disabled = !!id;
+        const estCreation = !id;
+        champMotDePasse.closest(".champ").style.display = estCreation ? "block" : "none";
+        champMotDePasse.required = estCreation;
+        champRole.closest(".champ").style.display = estCreation ? "block" : "none";
+        champLogin.disabled = !estCreation;
 
         if (id) {
             const ligne = donnees.find(d => String(d.id) === String(id));
@@ -91,13 +110,15 @@ function initModuleUtilisateurs() {
         modal.classList.remove("actif");
     }
 
-    async function desactiverLigne(id) {
-        if (!confirm("Confirmer la désactivation de ce compte ?")) return;
+    // Suppression réelle : appelle la fonction Edge, qui supprime le compte
+    // d'authentification (le profil est supprimé automatiquement avec lui)
+    async function supprimerLigne(id) {
+        if (!confirm("Confirmer la suppression définitive de ce compte ? Cette action est irréversible.")) return;
 
-        const { error } = await client.from("profils").update({ statutCompte: "Inactif" }).eq("id", id);
-        if (error) {
-            alert("Opération impossible.");
-            console.error(error);
+        const resultat = await appelerFonction({ action: "supprimer", id });
+
+        if (resultat.error) {
+            alert("Suppression impossible : " + resultat.error);
             return;
         }
         chargerDonnees();
@@ -108,7 +129,7 @@ function initModuleUtilisateurs() {
         const id = champIdCache.value;
 
         if (id) {
-            // Modification d'un profil existant (nom, prénom, statut uniquement — pas le rôle)
+            // Modification d'un profil existant (nom, prénom, statut — pas le rôle ni le login)
             const { error } = await client.from("profils").update({
                 nom: form.nom.value,
                 prenom: form.prenom.value,
@@ -121,32 +142,22 @@ function initModuleUtilisateurs() {
                 return;
             }
         } else {
-            // Création : un vrai compte de connexion, via un client Supabase temporaire
-            // (pour ne pas déconnecter l'administrateur actuellement connecté)
-            const clientTemporaire = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+            // Création réelle : passe par la fonction Edge, avec le rôle choisi
             const email = `${form.login.value.trim()}@${DOMAINE_INTERNE}`;
 
-            const { data, error: erreurCreation } = await clientTemporaire.auth.signUp({
+            const resultat = await appelerFonction({
+                action: "creer",
                 email,
-                password: form.motDePasse.value,
-            });
-
-            if (erreurCreation || !data.user) {
-                alert("Création du compte impossible : " + (erreurCreation?.message || "erreur inconnue"));
-                return;
-            }
-
-            const { error: erreurProfil } = await client.from("profils").insert([{
-                id: data.user.id,
+                motDePasse: form.motDePasse.value,
                 nom: form.nom.value,
                 prenom: form.prenom.value,
                 login: form.login.value.trim(),
-                role: "Administrateur", // fixé automatiquement — seul un Super Administrateur créé en base peut avoir ce rôle
+                role: form.role.value,
                 statutCompte: form.statutCompte.value,
-            }]);
+            });
 
-            if (erreurProfil) {
-                alert("Compte créé mais profil non enregistré : " + erreurProfil.message);
+            if (resultat.error) {
+                alert("Création impossible : " + resultat.error);
                 return;
             }
         }

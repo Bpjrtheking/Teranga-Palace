@@ -293,7 +293,7 @@
                 </div>
             </section>
 
-                        <!-- ===================== UTILISATEURS ===================== -->
+                                    <!-- ===================== UTILISATEURS ===================== -->
             <section id="section-utilisateurs">
                 <div class="entete-section"><h2>Utilisateurs</h2><button class="btn-ajouter">Ajouter un utilisateur</button></div>
                 <div class="conteneur-tableau">
@@ -311,6 +311,12 @@
                             <div class="champ"><label>Prénom</label><input type="text" name="prenom" required /></div>
                             <div class="champ"><label>Login</label><input type="text" name="login" required /></div>
                             <div class="champ"><label>Mot de passe</label><input type="password" name="motDePasse" /></div>
+                            <div class="champ"><label>Rôle</label>
+                                <select name="role">
+                                    <option>Administrateur</option>
+                                    <option>Super Administrateur</option>
+                                </select>
+                            </div>
                             <div class="champ"><label>Statut</label>
                                 <select name="statutCompte">
                                     <option>Actif</option>
@@ -325,7 +331,6 @@
                     </div>
                 </div>
             </section>
-
         </main>
     </div>
 </div>

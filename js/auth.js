@@ -2,7 +2,7 @@
 // Authentification réelle via Supabase Auth
 // ============================================
 
-const DOMAINE_INTERNE = "teranga.local"; // sert à transformer un "login" en email pour Supabase Auth
+const DOMAINE_INTERNE = "teranga-palace.com"; // sert à transformer un "login" en email pour Supabase Auth
 
 // Vérifie qu'une vraie session Supabase existe. Redirige sinon.
 // Renvoie le profil connecté (ou null si redirection déclenchée).
