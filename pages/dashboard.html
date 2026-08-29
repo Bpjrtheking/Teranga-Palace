@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Tableau de bord — TERANGA PALACE</title>
+<link rel="icon" type="image/png" href="../images/teranga.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/style.css" />
@@ -15,20 +16,47 @@
     <!-- ===== Menu latéral ===== -->
     <aside class="sidebar">
         <div class="marque">
-            <img src="../images/teranga.png" alt="Teranga Palace" class="logo logo-sidebar" />
+        
             <div class="nom">Teranga Palace</div>
             <div class="sous-titre">Gestion Hôtelière</div>
         </div>
         <ul class="menu">
-            <li><a href="#" data-section="accueil" class="actif">Tableau de bord</a></li>
-            <li><a href="#" data-section="clients">Clients</a></li>
-            <li><a href="#" data-section="chambres">Chambres</a></li>
-            <li><a href="#" data-section="reservations">Réservations</a></li>
-            <li><a href="#" data-section="sejours">Séjours</a></li>
-            <li><a href="#" data-section="paiements">Paiements</a></li>
-            <li><a href="#" data-section="factures">Factures</a></li>
-            <li><a href="#" data-section="activites">Activités</a></li>
-            <li><a href="#" data-section="utilisateurs">Utilisateurs</a></li>
+            <li><a href="#" data-section="accueil" class="actif">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                Tableau de bord
+            </a></li>
+            <li><a href="#" data-section="clients">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                Clients
+            </a></li>
+            <li><a href="#" data-section="chambres">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4v16"></path><path d="M2 8h18a2 2 0 0 1 2 2v10"></path><path d="M2 17h20"></path><path d="M6 8V6a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v2"></path></svg>
+                Chambres
+            </a></li>
+            <li><a href="#" data-section="reservations">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4"></path><path d="M8 2v4"></path><path d="M3 10h18"></path></svg>
+                Réservations
+            </a></li>
+            <li><a href="#" data-section="sejours">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                Séjours
+            </a></li>
+            <li><a href="#" data-section="paiements">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"></rect><path d="M1 10h22"></path></svg>
+                Paiements
+            </a></li>
+            <li><a href="#" data-section="factures">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="M9 15h6"></path><path d="M9 11h6"></path></svg>
+                Factures
+            </a></li>
+            <li><a href="#" data-section="activites">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9 12 2"></polygon></svg>
+                Activités
+            </a></li>
+            <li><a href="#" data-section="utilisateurs">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                Utilisateurs
+            </a></li>
         </ul>
     </aside>
 
@@ -40,6 +68,7 @@
                 <strong>TERANGA PALACE</strong>
             </div>
             <div class="infos-utilisateur">
+                <div class="avatar-initiales" id="avatarInitiales">—</div>
                 <div class="nom-role">
                     <span id="nomUtilisateurConnecte">—</span>
                     <span class="role" id="roleUtilisateurConnecte">—</span>

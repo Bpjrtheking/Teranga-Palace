@@ -76,7 +76,7 @@ async function gererConnexion(evenement) {
     window.location.href = "pages/dashboard.html";
 }
 
-// Affiche le nom et le rôle de l'utilisateur connecté dans l'en-tête du dashboard
+// Affiche le nom, le rôle et les initiales de l'utilisateur connecté dans l'en-tête du dashboard
 function afficherUtilisateurConnecte() {
     const utilisateur = JSON.parse(sessionStorage.getItem("utilisateur"));
     if (!utilisateur) return;
@@ -84,6 +84,12 @@ function afficherUtilisateurConnecte() {
     document.getElementById("nomUtilisateurConnecte").textContent =
         `${utilisateur.prenom} ${utilisateur.nom}`;
     document.getElementById("roleUtilisateurConnecte").textContent = utilisateur.role;
+
+    const avatar = document.getElementById("avatarInitiales");
+    if (avatar) {
+        const initiales = `${utilisateur.prenom?.[0] ?? ""}${utilisateur.nom?.[0] ?? ""}`.toUpperCase();
+        avatar.textContent = initiales || "?";
+    }
 
     if (utilisateur.role !== "Super Administrateur") {
         const lienUtilisateurs = document.querySelector('[data-section="utilisateurs"]');
