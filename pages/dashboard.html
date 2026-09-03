@@ -268,7 +268,7 @@
                 <div class="entete-section"><h2>Paiements</h2><button class="btn-ajouter">Ajouter un paiement</button></div>
                 <div class="conteneur-tableau">
                     <table>
-                        <thead><tr><th>Client</th><th>Chambre</th><th>Montant payé</th><th>Montant restant</th><th>Date</th><th>Actions</th></tr></thead>
+                        <thead><tr><th>N° Facture</th><th>Client</th><th>Montant</th><th>Statut</th><th>Date</th><th>Actions</th></tr></thead>
                         <tbody><tr><td colspan="6" class="etat-vide">Aucun paiement pour le moment.</td></tr></tbody>
                     </table>
                 </div>
@@ -277,10 +277,15 @@
                         <div class="modal-titre">Paiement</div>
                         <form>
                             <input type="hidden" name="id" />
+                            <div class="champ"><label>Facture ID</label><input type="number" name="facture_id" required /></div>
                             <div class="champ"><label>Client</label><select name="client_id" required></select></div>
-                            <div class="champ"><label>Chambre</label><select name="chambre_id" required></select></div>
-                            <div class="champ"><label>Montant payé (FCFA)</label><input type="number" name="montant" /></div>
-                            <div class="champ"><label>Montant restant (FCFA)</label><input type="number" name="montant_restant" /></div>
+                            <div class="champ"><label>Montant (FCFA)</label><input type="number" name="montant" required /></div>
+                            <div class="champ"><label>Statut</label>
+                                <select name="statut">
+                                    <option value="pas_paye">Pas payé</option>
+                                    <option value="paye">Payé</option>
+                                </select>
+                            </div>
                             <div class="champ"><label>Date</label><input type="date" name="date_paiement" /></div>
                             <div class="actions-modal">
                                 <button type="button" class="btn-annuler">Annuler</button>
@@ -296,8 +301,8 @@
                 <div class="entete-section"><h2>Factures</h2><button class="btn-ajouter">Ajouter une facture</button></div>
                 <div class="conteneur-tableau">
                     <table>
-                        <thead><tr><th>Client</th><th>Chambre</th><th>Montant total</th><th>Date</th><th>Actions</th></tr></thead>
-                        <tbody><tr><td colspan="5" class="etat-vide">Aucune facture pour le moment.</td></tr></tbody>
+                        <thead><tr><th>Client</th><th>Chambre</th><th>Activité</th><th>Montant total</th><th>Date</th><th>Actions</th></tr></thead>
+                        <tbody><tr><td colspan="6" class="etat-vide">Aucune facture pour le moment.</td></tr></tbody>
                     </table>
                 </div>
                 <div class="modal">
@@ -305,10 +310,28 @@
                         <div class="modal-titre">Facture</div>
                         <form>
                             <input type="hidden" name="id" />
-                            <div class="champ"><label>Client</label><select name="client_id" required></select></div>
-                            <div class="champ"><label>Chambre</label><select name="chambre_id" required></select></div>
-                            <div class="champ"><label>Montant total (FCFA)</label><input type="number" name="montant_total" /></div>
-                            <div class="champ"><label>Date</label><input type="date" name="date_facture" /></div>
+                            <div class="champ">
+                                <label>Client (Seulement avec Réservation ou Activité)</label>
+                                <select name="client_id" required></select>
+                            </div>
+                            <div class="champ">
+                                <label>Chambre réservée</label>
+                                <input type="text" id="facture_chambre" name="chambre_info" placeholder="Auto-détectée..." readonly />
+                            </div>
+                            <div class="champ">
+                                <label>Activité</label>
+                                <select name="activite_id" id="facture_activite">
+                                    <option value="">-- Choisir une activité (Optionnel) --</option>
+                                </select>
+                            </div>
+                            <div class="champ">
+                                <label>Montant total (Calculé automatiquement)</label>
+                                <input type="number" name="montant_total" placeholder="0" readonly required />
+                            </div>
+                            <div class="champ">
+                                <label>Date</label>
+                                <input type="date" name="date_facture" />
+                            </div>
                             <div class="actions-modal">
                                 <button type="button" class="btn-annuler">Annuler</button>
                                 <button type="submit" class="btn-enregistrer">Enregistrer</button>
@@ -395,5 +418,6 @@
 <script src="../js/utilisateurs.js"></script>
 <script src="../js/modules.js"></script>
 <script src="../js/main.js"></script>
+<script src="../js/impression.js"></script>
 </body>
 </html>

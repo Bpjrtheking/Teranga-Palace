@@ -77,6 +77,9 @@ function initTousLesModules() {
             { key: "montant_total", label: "Montant total", type: "number" },
             { key: "date_facture", label: "Date", type: "date" },
         ],
+        // Bouton "Imprimer" supplémentaire, propre aux factures
+        actionsExtra: (ligne) => `<button class="btn-extra btn-imprimer" data-id="${ligne.id}">Imprimer</button>`,
+        onActionExtra: (id, donnees) => imprimerFacture(id, donnees),
     });
 
     initCrudModule({

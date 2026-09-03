@@ -566,6 +566,7 @@ tbody tr:hover { background: rgba(199,164,92,0.05); }
 
 .btn-modifier { color: var(--vert-nuit); border: 1px solid var(--bordure) !important; }
 .btn-supprimer { color: var(--rouge); border: 1px solid var(--bordure) !important; }
+.btn-imprimer { color: var(--or); border: 1px solid var(--bordure) !important; }
 
 /* ---------- Modale (formulaire ajout / modification) ---------- */
 
